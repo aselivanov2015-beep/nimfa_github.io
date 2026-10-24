@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нимфа — Салон красоты</title>
+    <style>
+        /* CSS Variables for easy theme management */
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --bg-card-hover: #2a2a2a;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --accent: #c98b7b; /* Soft, elegant terracotta/rose */
+            --accent-hover: #b57a6b;
+            --border-color: #333;
+            --font-heading: 'Playfair Display', 'Times New Roman', serif;
+            --font-body: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+            margin-top: 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--accent);
+            background-color: transparent;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .header-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .phone {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to right, var(--bg-dark) 40%, var(--bg-card) 100%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Stats / Trust (like the reference) */
+        .trust-bar {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trust-value {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .trust-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-family: var(--font-body);
+            font-weight: 600;
+        }
+
+        .service-list {
+            margin-bottom: 30px;
+        }
+
+        .service-list li {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-list li::before {
+            content: '—';
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .service-price {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Why Us Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item h4 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 100px 0;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--bg-card);
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .rating-badge .stars {
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-left: 2px solid var(--accent);
+        }
+
+        .review-text {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/5;
+            background-color: var(--bg-card-hover);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            border: 1px dashed var(--border-color);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(to top, var(--bg-dark), var(--bg-card));
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cta-section h2 {
+            display: inline-block;
+        }
+        
+        .cta-section h2::after {
+            margin: 15px auto 0 auto;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+            background-color: #0a0a0a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .footer-col p, .footer-col a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .header-contact {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .trust-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .reviews-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">НИМФА<span>.</span></a>
+            
+            <nav class="nav-links">
+                <a href="#services">Услуги</a>
+                <a href="#features">О салоне</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+
+            <div class="header-contact">
+                <span class="phone">+7 (812) 000-00-00</span>
+                <a href="#cta" class="btn btn-primary">Записаться</a>
+            </div>
+
+            <div class="menu-toggle">☰</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Пространство красоты и приватности</h1>
+            <p>Парикмахерские, ногтевые и косметологические услуги в шаговой доступности. Демьяна Бедного, 28к1.</p>
+            
+            <div class="hero-actions">
+                <a href="#cta" class="btn btn-primary">Записаться онлайн</a>
+                <a href="tel:+78120000000" class="btn">Позвонить</a>
+            </div>
+
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <span class="trust-value">4.3</span>
+                    <span class="trust-label">Рейтинг на Яндекс.Картах</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-value">100%</span>
+                    <span class="trust-label">Приватность — не на витрине</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-value">10+</span>
+                    <span class="trust-label">Лет опыта мастеров</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services container">
+        <h2>Что мы делаем</h2>
+        <div class="services-grid">
+            
+            <!-- Service Card 1 -->
+            <div class="service-card">
+                <h3>Парикмахерские услуги</h3>
+                <ul class="service-list">
+                    <li>Женские и мужские стрижки</li>
+                    <li>Сложное окрашивание и осветление</li>
+                    <li>Укладка и вечерние причёски</li>
+                    <li>Наращивание волос</li>
+                </ul>
+                <span class="service-price">Женская стрижка — от 3500 ₽</span>
+                <a href="#" class="btn">Все услуги</a>
+            </div>
+
+            <!-- Service Card 2 -->
+            <div class="service-card">
+                <h3>Ногтевой сервис</h3>
+                <ul class="service-list">
+                    <li>Маникюр (женский, мужской, детский)</li>
+                    <li>Педикюр и аппаратный педикюр</li>
+                    <li>Наращивание ногтей</li>
+                </ul>
+                <span class="service-price">Стоимость по запросу</span>
+                <a href="#" class="btn">Все услуги</a>
+            </div>
+
+            <!-- Service Card 3 -->
+            <div class="service-card">
+                <h3>Косметология</h3>
+                <ul class="service-list">
+                    <li>Коррекция бровей</li>
+                    <li>Эпиляция</li>
+                </ul>
+                <span class="service-price">Стоимость по запросу</span>
+                <a href="#" class="btn">Все услуги</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Почему нас выбирают</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>Приватность</h4>
+                    <p>Мы не на витрине: вас не видят прохожие. Место, где можно расслабиться и быть собой.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Опытные мастера</h4>
+                    <p>Специалисты по сложному окрашиванию, уходу и созданию индивидуального стиля.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Удобно добираться</h4>
+                    <p>Демьяна Бедного, 28к1 — рядом с домом. Без лишних пробок и поисков парковки.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Прозрачные цены</h4>
+                    <p>Называем стоимость до начала работы. Никаких сюрпризов в чеке.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews container">
+        <div class="reviews-header">
+            <h2>Что говорят клиенты</h2>
+            <div class="rating-badge">
+                <span class="stars">★★★★☆</span>
+                <span>4.3 на Яндекс.Картах</span>
+            </div>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <p class="review-text">"Отличный мастер Елена! Сделала сложное окрашивание именно так, как я хотела. Очень уютно и приватно, чувствуешь себя как в спа."</p>
+                <span class="review-author">— Анна К.</span>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Хожу на маникюр уже полгода. Всегда чисто, аккуратно и вовремя. Цены адекватные для такого качества."</p>
+                <span class="review-author">— Мария С.</span>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Наконец-то нашла салон рядом с домом, где не нужно сидеть в очереди и можно спокойно расслабиться."</p>
+                <span class="review-author">— Ольга В.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery container">
+        <h2>Атмосфера</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">Фото интерьера</div>
+            <div class="gallery-item">Фото работ</div>
+            <div class="gallery-item">Фото интерьера</div>
+            <div class="gallery-item">Фото работ</div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2>Запишитесь на удобное время</h2>
+            <p>Оставьте заявку — мы свяжемся и подберём мастера и время. Или позвоните нам напрямую.</p>
+            <div class="hero-actions" style="justify-content: center;">
+                <a href="#" class="btn btn-primary">Записаться онлайн</a>
+                <a href="tel:+78120000000" class="btn">Позвонить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 20px; display: block;">НИМФА<span>.</span></a>
+                    <p>Салон красоты в Санкт-Петербурге. Место, где вас ценят и понимают.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <p>Демьяна Бедного, 28к1</p>
+                    <p>Санкт-Петербург</p>
+                    <a href="tel:+78120000000">+7 (812) 000-00-00</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Режим работы</h4>
+                    <p>Пн-Вс: 10:00 — 21:00</p>
+                    <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">*Точное время уточняйте по телефону</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Документы</h4>
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Согласие на обработку данных</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Салон красоты «Нимфа». Все права защищены.</p>
+                <p>Сделано с заботой о вашем времени.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
