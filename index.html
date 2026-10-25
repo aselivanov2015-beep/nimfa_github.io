@@ -64,7 +64,6 @@
         h1, h2, h3, h4 { font-weight: 400; line-height: 1.2; letter-spacing: -0.5px; }
 
         /* --- АНИМАЦИИ --- */
-        
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -91,7 +90,6 @@
         }
 
         /* --- СТИЛИ --- */
-
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(30px) saturate(180%);
@@ -121,8 +119,6 @@
         }
 
         .btn:active { transform: scale(0.96); }
-        .btn-dark { background-color: var(--text-main); color: var(--text-light); }
-        .btn-dark:hover { background-color: #333333; }
         
         .btn-glass {
             background: rgba(255, 255, 255, 0.3);
@@ -245,6 +241,7 @@
         .date-month { font-family: var(--font-heading); font-size: 3rem; font-weight: 600; line-height: 1; color: var(--text-main); }
         .date-year { font-family: var(--font-body); font-size: 1.5rem; font-weight: 300; color: #999; line-height: 1.2; letter-spacing: 2px; }
 
+        /* --- СТИЛИЗОВАННЫЙ ТЕКСТОВЫЙ ЛОГОТИП --- */
         .logo-image-container {
             display: flex;
             justify-content: center;
@@ -254,13 +251,51 @@
             z-index: 2;
         }
 
-        .logo-image-container img {
-            max-width: 90%;
-            max-height: 250px;
-            height: auto;
-            object-fit: contain;
-            /* Делает белый фон логотипа прозрачным, сливая его с карточкой */
-            mix-blend-mode: multiply; 
+        .css-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .css-logo h2 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 400;
+            letter-spacing: 12px;
+            margin-left: 12px; /* Компенсация отступа справа */
+            color: var(--text-main);
+            line-height: 1;
+        }
+
+        .css-logo .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .css-logo .divider .line {
+            height: 1px;
+            width: 40px;
+            background-color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .css-logo .divider .star {
+            font-size: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .css-logo p {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            letter-spacing: 8px;
+            margin-left: 8px;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
         .card-white-logo .minimal-text {
@@ -372,6 +407,9 @@
             .section-padding { padding: 40px 0; }
             .footer-inner { padding: 32px; }
             
+            .css-logo h2 { font-size: 3rem; letter-spacing: 8px; margin-left: 8px; }
+            .css-logo p { font-size: 0.7rem; letter-spacing: 5px; margin-left: 5px; }
+            
             .hover-scale:hover { transform: none; box-shadow: var(--glass-shadow); }
         }
     </style>
@@ -419,5 +457,178 @@
                     <div class="date-block" id="current-date"></div>
                     
                     <div class="logo-image-container">
-                        <!-- Вставлен ваш логотип (Base64) -->
-                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPDs0NDT/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAQABAADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKK
+                        <!-- Векторный логотип на CSS -->
+                        <div class="css-logo">
+                            <h2>НИМФА</h2>
+                            <div class="divider">
+                                <span class="line"></span>
+                                <span class="star">✦</span>
+                                <span class="line"></span>
+                            </div>
+                            <p>Салон красоты</p>
+                        </div>
+                    </div>
+                    
+                    <div class="minimal-text">Beauty Salon</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SERVICES -->
+        <section id="services" class="section-padding">
+            <div class="grid-layout">
+                <div class="service-card glass-panel reveal">
+                    <div class="hover-scale" style="width:100%; height:100%; display:flex; flex-direction:column;">
+                        <h3>Парикмахерские услуги</h3>
+                        <ul class="service-list">
+                            <li>Женские и мужские стрижки</li>
+                            <li>Сложное окрашивание и осветление</li>
+                            <li>Укладка и вечерние причёски</li>
+                            <li>Наращивание волос</li>
+                        </ul>
+                        <span class="service-price">Женская стрижка — от 3500 ₽</span>
+                        <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                    </div>
+                </div>
+
+                <div class="service-card glass-panel reveal reveal-delay-1">
+                    <div class="hover-scale" style="width:100%; height:100%; display:flex; flex-direction:column;">
+                        <h3>Ногтевой сервис</h3>
+                        <ul class="service-list">
+                            <li>Маникюр (женский, мужской, детский)</li>
+                            <li>Педикюр и аппаратный педикюр</li>
+                            <li>Наращивание ногтей</li>
+                        </ul>
+                        <span class="service-price">Стоимость по запросу</span>
+                        <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                    </div>
+                </div>
+
+                <div class="service-card glass-panel reveal reveal-delay-2">
+                    <div class="hover-scale" style="width:100%; height:100%; display:flex; flex-direction:column;">
+                        <h3>Косметология</h3>
+                        <ul class="service-list">
+                            <li>Коррекция бровей</li>
+                            <li>Эпиляция</li>
+                        </ul>
+                        <span class="service-price">Стоимость по запросу</span>
+                        <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" class="section-padding">
+            <div class="grid-layout">
+                <div class="service-card glass-panel reveal">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <h3>Приватность</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Мы не на витрине: вас не видят прохожие. Место, где можно расслабиться и быть собой.</p>
+                    </div>
+                </div>
+                <div class="service-card glass-panel reveal reveal-delay-1">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <h3>Опытные мастера</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Специалисты по сложному окрашиванию, уходу и созданию индивидуального стиля.</p>
+                    </div>
+                </div>
+                <div class="service-card glass-panel reveal reveal-delay-2">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <h3>Удобно добираться</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Демьяна Бедного, 28к1 — рядом с домом. Без лишних пробок и поисков парковки.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS -->
+        <section id="reviews" class="section-padding">
+            <div class="reviews-header reveal">
+                <h2 style="font-size: 2rem; font-family: var(--font-heading);">Отзывы</h2>
+                <div class="rating-badge glass-panel">
+                    <span class="stars">★★★★☆</span>
+                    <span>4.3 Яндекс.Карты</span>
+                </div>
+            </div>
+            <div class="grid-layout">
+                <div class="review-card glass-panel reveal">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <p class="review-text">"Отличный мастер Елена! Сделала сложное окрашивание именно так, как я хотела. Очень уютно и приватно."</p>
+                        <span class="review-author">— Анна К.</span>
+                    </div>
+                </div>
+                <div class="review-card glass-panel reveal reveal-delay-1">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <p class="review-text">"Хожу на маникюр уже полгода. Всегда чисто, аккуратно и вовремя. Цены адекватные."</p>
+                        <span class="review-author">— Мария С.</span>
+                    </div>
+                </div>
+                <div class="review-card glass-panel reveal reveal-delay-2">
+                    <div class="hover-scale" style="width:100%; height:100%;">
+                        <p class="review-text">"Наконец-то нашла салон рядом с домом, где не нужно сидеть в очереди."</p>
+                        <span class="review-author">— Ольга В.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="contacts" class="reveal">
+            <div class="footer-inner glass-panel">
+                <div class="footer-col">
+                    <h4 style="font-family: var(--font-heading); font-size: 1.5rem; text-transform: none; letter-spacing: 2px;">НИМФА</h4>
+                    <p style="margin-top: 10px;">Салон красоты в Санкт-Петербурге.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <p>Демьяна Бедного, 28к1</p>
+                    <a href="tel:+78120000000">+7 (812) 000-00-00</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Режим работы</h4>
+                    <p>Пн-Вс: 10:00 — 21:00</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Документы</h4>
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Согласие на обработку данных</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. Дата
+        const dateContainer = document.getElementById('current-date');
+        const now = new Date();
+        const monthFull = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        dateContainer.innerHTML = `
+            <div class="date-month">${monthFull[now.getMonth()]}</div>
+            <div class="date-year">${now.getFullYear()}</div>
+        `;
+
+        // 2. Анимация появления (Scroll Reveal)
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll(".reveal");
+
+            function checkReveal() {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 80; 
+
+                reveals.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add("active");
+                    }
+                });
+            }
+
+            checkReveal();
+            window.addEventListener("scroll", checkReveal);
+        });
+    </script>
+</body>
+</html>
