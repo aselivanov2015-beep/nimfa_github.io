@@ -5,37 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Нимфа — Салон красоты</title>
     <style>
-        /* CSS Variables for easy theme management */
+        /* CSS Variables */
         :root {
-            --bg-base: #e8c3c9; /* Soft pink base */
+            --bg-base: #e8c3c9;
             --text-main: #1a1a1a;
             --text-muted: #555555;
             --text-light: #ffffff;
             
-            /* Glassmorphism - Enhanced for the top left card */
             --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.5);
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
             
-            /* Black Card */
             --card-black-bg: #1a1a1a;
-            
-            /* White Card */
             --card-white-bg: #ffffff;
             
             --font-heading: 'Playfair Display', 'Times New Roman', serif;
             --font-body: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             
-            /* iOS-like rounded corners */
             --radius-lg: 32px;
             --radius-md: 24px;
             --radius-pill: 50px;
             
-            /* iOS-like smooth transitions */
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -46,7 +39,6 @@
         body {
             font-family: var(--font-body);
             background-color: var(--bg-base);
-            /* Simulating the desert landscape background from the reference */
             background-image: 
                 radial-gradient(circle at 50% 60%, rgba(255,255,255,0.2) 0%, transparent 50%),
                 linear-gradient(180deg, #f4d3d8 0%, #e8bcc4 40%, #d69ba6 100%);
@@ -54,21 +46,13 @@
             color: var(--text-main);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
             padding: 40px 0;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            overflow-x: hidden;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        ul {
-            list-style: none;
-        }
+        a { color: inherit; text-decoration: none; transition: var(--transition); }
+        ul { list-style: none; }
 
         .container {
             width: 100%;
@@ -77,27 +61,37 @@
             padding: 0 20px;
         }
 
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 400;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
+        h1, h2, h3, h4 { font-weight: 400; line-height: 1.2; letter-spacing: -0.5px; }
+
+        /* --- АНИМАЦИИ --- */
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Base styles for all cards to enable hover animation */
-        .animated-card {
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+
+        .hover-scale {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
             will-change: transform;
         }
 
-        /* Hover effect: slight scaling */
-        .animated-card:hover {
-            transform: scale(1.02) translateY(-2px);
-            box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.15);
-            z-index: 10; /* Bring hovered card to front */
+        .hover-scale:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            z-index: 10;
         }
 
-        /* Glassmorphism utility */
+        /* --- СТИЛИ --- */
+
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(30px) saturate(180%);
@@ -107,7 +101,6 @@
             border-radius: var(--radius-lg);
         }
 
-        /* Buttons */
         .btn {
             display: inline-flex;
             justify-content: center;
@@ -127,18 +120,9 @@
             width: 100%;
         }
 
-        .btn:active {
-            transform: scale(0.96);
-        }
-
-        .btn-dark {
-            background-color: var(--text-main);
-            color: var(--text-light);
-        }
-
-        .btn-dark:hover {
-            background-color: #333333;
-        }
+        .btn:active { transform: scale(0.96); }
+        .btn-dark { background-color: var(--text-main); color: var(--text-light); }
+        .btn-dark:hover { background-color: #333333; }
         
         .btn-glass {
             background: rgba(255, 255, 255, 0.3);
@@ -147,29 +131,9 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             color: var(--text-main);
         }
-        
-        .btn-glass:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
+        .btn-glass:hover { background: rgba(255, 255, 255, 0.5); }
 
-        /* --- SCROLL REVEAL ANIMATION CLASSES --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Staggered delays for grid items */
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-
-        /* --- HERO GRID (The 3 Windows) --- */
+        /* HERO GRID */
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -184,7 +148,6 @@
             gap: 24px;
         }
 
-        /* 1. Top Left Glass Card */
         .card-glass-slogan {
             padding: 40px;
             display: flex;
@@ -200,7 +163,7 @@
             color: var(--text-main);
             margin-bottom: 20px;
             line-height: 1.1;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.3); /* Slight text glow for readability on glass */
+            text-shadow: 0 2px 10px rgba(255,255,255,0.3);
         }
 
         .card-glass-slogan .address {
@@ -210,7 +173,6 @@
             opacity: 0.8;
         }
 
-        /* 2. Bottom Left Black Card */
         .card-black-cta {
             background-color: var(--card-black-bg);
             border-radius: var(--radius-lg);
@@ -239,22 +201,14 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-light);
         }
-        
-        .card-black-cta .btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
+        .card-black-cta .btn:hover { background-color: rgba(255, 255, 255, 0.1); }
         .card-black-cta .btn-primary-white {
             background-color: #ffffff;
             color: var(--text-main);
             border: none;
         }
-        
-        .card-black-cta .btn-primary-white:hover {
-            background-color: #f0f0f0;
-        }
+        .card-black-cta .btn-primary-white:hover { background-color: #f0f0f0; }
 
-        /* 3. Right Large White Card */
         .card-white-logo {
             background-color: var(--card-white-bg);
             border-radius: var(--radius-lg);
@@ -267,7 +221,6 @@
             overflow: hidden;
         }
 
-        /* Decorative pink circle from the reference */
         .card-white-logo::before {
             content: '';
             position: absolute;
@@ -288,41 +241,25 @@
             z-index: 1;
         }
 
-        .date-block {
-            display: flex;
-            flex-direction: column;
-        }
+        .date-block { display: flex; flex-direction: column; }
+        .date-month { font-family: var(--font-heading); font-size: 3rem; font-weight: 600; line-height: 1; color: var(--text-main); }
+        .date-year { font-family: var(--font-body); font-size: 1.5rem; font-weight: 300; color: #999; line-height: 1.2; letter-spacing: 2px; }
 
-        .date-month {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            font-weight: 600;
-            line-height: 1;
-            color: var(--text-main);
-        }
-
-        .date-year {
-            font-family: var(--font-body);
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #999;
-            line-height: 1.2;
-            letter-spacing: 2px;
-        }
-
-        /* Container for the Logo Image */
         .logo-image-container {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-grow: 1;
             padding: 20px 0;
+            z-index: 2;
         }
 
         .logo-image-container img {
-            max-width: 80%;
+            max-width: 90%;
+            max-height: 250px;
             height: auto;
-            /* Filter to ensure the black logo looks good if background blends */
+            object-fit: contain;
+            /* Делает белый фон логотипа прозрачным, сливая его с карточкой */
             mix-blend-mode: multiply; 
         }
 
@@ -334,10 +271,8 @@
             text-transform: uppercase;
         }
 
-        /* --- REST OF THE PAGE CONTENT (Small Glass Panels) --- */
-        .section-padding {
-            padding: 60px 0;
-        }
+        /* ОСТАЛЬНЫЕ БЛОКИ */
+        .section-padding { padding: 60px 0; }
 
         .grid-layout {
             display: grid;
@@ -352,16 +287,9 @@
             border-radius: var(--radius-md);
         }
 
-        .service-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 20px; font-weight: 500; }
 
-        .service-list {
-            margin-bottom: 24px;
-            flex-grow: 1;
-        }
+        .service-list { margin-bottom: 24px; flex-grow: 1; }
 
         .service-list li {
             color: var(--text-muted);
@@ -384,15 +312,8 @@
             opacity: 0.4;
         }
 
-        .service-price {
-            font-size: 0.95rem;
-            color: var(--text-main);
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: block;
-        }
+        .service-price { font-size: 0.95rem; color: var(--text-main); font-weight: 600; margin-bottom: 20px; display: block; }
 
-        /* Reviews */
         .reviews-header {
             display: flex;
             justify-content: space-between;
@@ -410,9 +331,7 @@
             font-weight: 500;
         }
 
-        .rating-badge .stars {
-            color: #ff6b81;
-        }
+        .rating-badge .stars { color: #ff6b81; }
 
         .review-card {
             padding: 32px;
@@ -421,23 +340,10 @@
             border-radius: var(--radius-md);
         }
 
-        .review-text {
-            color: var(--text-main);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
+        .review-text { color: var(--text-main); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        .review-author { font-weight: 600; font-size: 0.85rem; color: var(--text-muted); }
 
-        .review-author {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-        }
+        footer { padding: 40px 0; }
 
         .footer-inner {
             padding: 40px;
@@ -447,76 +353,28 @@
             gap: 32px;
         }
 
-        .footer-col h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .footer-col h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col p, .footer-col a { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .footer-col a:hover { color: var(--text-main); }
 
-        .footer-col p, .footer-col a {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .footer-col a:hover {
-            color: var(--text-main);
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 900px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card-white-logo::before {
-                width: 250px;
-                height: 250px;
-                right: -10%;
-            }
+            .hero-grid { grid-template-columns: 1fr; }
+            .card-white-logo::before { width: 250px; height: 250px; right: -10%; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 20px 0;
-            }
+            body { padding: 20px 0; }
+            .card-glass-slogan h1 { font-size: 2.2rem; }
+            .card-white-logo { padding: 32px; min-height: 350px; }
+            .date-month { font-size: 2.5rem; }
+            .card-black-cta { padding: 32px; }
+            .section-padding { padding: 40px 0; }
+            .footer-inner { padding: 32px; }
             
-            .card-glass-slogan h1 {
-                font-size: 2.2rem;
-            }
-            
-            .card-white-logo {
-                padding: 32px;
-                min-height: 350px;
-            }
-
-            .date-month {
-                font-size: 2.5rem;
-            }
-            
-            .card-black-cta {
-                padding: 32px;
-            }
-            
-            .section-padding {
-                padding: 40px 0;
-            }
-            
-            .footer-inner {
-                padding: 32px;
-            }
-            
-            /* Turn off hover scale on mobile to avoid layout issues */
-            .animated-card:hover {
-                transform: none;
-                box-shadow: var(--glass-shadow);
-            }
+            .hover-scale:hover { transform: none; box-shadow: var(--glass-shadow); }
         }
     </style>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -525,202 +383,41 @@
 
     <div class="container">
         
-        <!-- Hero Grid (The 3 Windows) -->
+        <!-- HERO GRID -->
         <div class="hero-grid">
             
-            <!-- Left Column -->
+            <!-- LEFT COLUMN -->
             <div class="hero-left-col">
-                <!-- 1. Glass Card: Slogan & Address -->
-                <div class="card-glass-slogan glass-panel animated-card reveal">
-                    <h1>Пространство красоты и приватности</h1>
-                    <div class="address">
-                        Санкт-Петербург,<br>
-                        ул. Демьяна Бедного, 28к1
+                
+                <!-- 1. Матовое стекло -->
+                <div class="card-glass-slogan glass-panel reveal">
+                    <div class="hover-scale" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <h1>Пространство красоты и приватности</h1>
+                        <div class="address">
+                            Санкт-Петербург,<br>
+                            ул. Демьяна Бедного, 28к1
+                        </div>
                     </div>
                 </div>
 
-                <!-- 2. Black Card: CTA -->
-                <div class="card-black-cta animated-card reveal reveal-delay-1">
-                    <h2>Запишитесь<br>на удобное время</h2>
-                    <div class="btn-group">
-                        <a href="#" class="btn btn-primary-white">Записаться онлайн</a>
-                        <a href="tel:+78120000000" class="btn">Позвонить</a>
+                <!-- 2. Черное окно -->
+                <div class="card-black-cta reveal reveal-delay-1">
+                    <div class="hover-scale" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <h2>Запишитесь<br>на удобное время</h2>
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-primary-white">Записаться онлайн</a>
+                            <a href="tel:+78120000000" class="btn">Позвонить</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. Right Column: White Card with Logo -->
-            <div class="card-white-logo animated-card reveal reveal-delay-2">
-                <div class="date-block" id="current-date">
-                    <!-- Date will be populated by JavaScript -->
-                </div>
-                
-                <!-- Logo Image Container -->
-                <div class="logo-image-container">
-                    <!-- ВАЖНО: Замените ссылку ниже на путь к вашему файлу логотипа, например: src="images/logo.png" -->
-                    <img src="https://i.ibb.co/68032N2/logo-placeholder.png" alt="Логотип Нимфа" id="salon-logo">
-                </div>
-
-                <div class="minimal-text">
-                    Beauty Salon
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Services Section -->
-        <section id="services" class="section-padding">
-            <div class="grid-layout">
-                
-                <!-- Service Card 1 -->
-                <div class="service-card glass-panel animated-card reveal">
-                    <h3>Парикмахерские услуги</h3>
-                    <ul class="service-list">
-                        <li>Женские и мужские стрижки</li>
-                        <li>Сложное окрашивание и осветление</li>
-                        <li>Укладка и вечерние причёски</li>
-                        <li>Наращивание волос</li>
-                    </ul>
-                    <span class="service-price">Женская стрижка — от 3500 ₽</span>
-                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
-                </div>
-
-                <!-- Service Card 2 -->
-                <div class="service-card glass-panel animated-card reveal reveal-delay-1">
-                    <h3>Ногтевой сервис</h3>
-                    <ul class="service-list">
-                        <li>Маникюр (женский, мужской, детский)</li>
-                        <li>Педикюр и аппаратный педикюр</li>
-                        <li>Наращивание ногтей</li>
-                    </ul>
-                    <span class="service-price">Стоимость по запросу</span>
-                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
-                </div>
-
-                <!-- Service Card 3 -->
-                <div class="service-card glass-panel animated-card reveal reveal-delay-2">
-                    <h3>Косметология</h3>
-                    <ul class="service-list">
-                        <li>Коррекция бровей</li>
-                        <li>Эпиляция</li>
-                    </ul>
-                    <span class="service-price">Стоимость по запросу</span>
-                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section id="features" class="section-padding">
-            <div class="grid-layout">
-                <div class="service-card glass-panel animated-card reveal">
-                    <h3>Приватность</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Мы не на витрине: вас не видят прохожие. Место, где можно расслабиться и быть собой.</p>
-                </div>
-                <div class="service-card glass-panel animated-card reveal reveal-delay-1">
-                    <h3>Опытные мастера</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Специалисты по сложному окрашиванию, уходу и созданию индивидуального стиля.</p>
-                </div>
-                <div class="service-card glass-panel animated-card reveal reveal-delay-2">
-                    <h3>Удобно добираться</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Демьяна Бедного, 28к1 — рядом с домом. Без лишних пробок и поисков парковки.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reviews Section -->
-        <section id="reviews" class="section-padding">
-            <div class="reviews-header reveal">
-                <h2 style="font-size: 2rem; font-family: var(--font-heading);">Отзывы</h2>
-                <div class="rating-badge glass-panel">
-                    <span class="stars">★★★★☆</span>
-                    <span>4.3 Яндекс.Карты</span>
-                </div>
-            </div>
-            <div class="grid-layout">
-                <div class="review-card glass-panel animated-card reveal">
-                    <p class="review-text">"Отличный мастер Елена! Сделала сложное окрашивание именно так, как я хотела. Очень уютно и приватно."</p>
-                    <span class="review-author">— Анна К.</span>
-                </div>
-                <div class="review-card glass-panel animated-card reveal reveal-delay-1">
-                    <p class="review-text">"Хожу на маникюр уже полгода. Всегда чисто, аккуратно и вовремя. Цены адекватные."</p>
-                    <span class="review-author">— Мария С.</span>
-                </div>
-                <div class="review-card glass-panel animated-card reveal reveal-delay-2">
-                    <p class="review-text">"Наконец-то нашла салон рядом с домом, где не нужно сидеть в очереди."</p>
-                    <span class="review-author">— Ольга В.</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer id="contacts" class="reveal">
-            <div class="footer-inner glass-panel">
-                <div class="footer-col">
-                    <h4 style="font-family: var(--font-heading); font-size: 1.5rem; text-transform: none; letter-spacing: 2px;">НИМФА</h4>
-                    <p style="margin-top: 10px;">Салон красоты в Санкт-Петербурге.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Контакты</h4>
-                    <p>Демьяна Бедного, 28к1</p>
-                    <a href="tel:+78120000000">+7 (812) 000-00-00</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Режим работы</h4>
-                    <p>Пн-Вс: 10:00 — 21:00</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Документы</h4>
-                    <a href="#">Политика конфиденциальности</a>
-                    <a href="#">Согласие на обработку данных</a>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-
-    <!-- Scripts -->
-    <script>
-        // 1. Populate current date
-        const dateContainer = document.getElementById('current-date');
-        const now = new Date();
-        
-        const monthFull = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-        
-        const currentMonth = monthFull[now.getMonth()];
-        const currentYear = now.getFullYear();
-        
-        dateContainer.innerHTML = `
-            <div class="date-month">${currentMonth}</div>
-            <div class="date-year">${currentYear}</div>
-        `;
-
-        // 2. Scroll Reveal Animation (Floating effect)
-        document.addEventListener("DOMContentLoaded", function() {
-            // Find all elements with the 'reveal' class
-            const reveals = document.querySelectorAll(".reveal");
-
-            // Function to check if element is in viewport
-            function checkReveal() {
-                const windowHeight = window.innerHeight;
-                const elementVisible = 100; // Trigger animation when element is 100px into view
-
-                reveals.forEach((reveal) => {
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveal.classList.add("active");
-                    }
-                });
-            }
-
-            // Trigger on load
-            checkReveal();
-
-            // Trigger on scroll
-            window.addEventListener("scroll", checkReveal);
-        });
-    </script>
-
-</body>
-</html>
+            <!-- 3. Белое окно с логотипом -->
+            <div class="card-white-logo reveal reveal-delay-2">
+                <div class="hover-scale" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    
+                    <div class="date-block" id="current-date"></div>
+                    
+                    <div class="logo-image-container">
+                        <!-- Вставлен ваш логотип (Base64) -->
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPDs0NDT/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAQABAADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKK
