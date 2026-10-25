@@ -11,17 +11,25 @@
             --text-main: #1a1a1a;
             --text-muted: #555555;
             --text-light: #ffffff;
+            
+            /* Glassmorphism */
             --glass-bg: rgba(255, 255, 255, 0.25);
             --glass-border: rgba(255, 255, 255, 0.4);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-            --accent-dark: #1a1a1a;
-            --accent-pink: #ff8a9f;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+            
+            /* Black Card */
+            --card-black-bg: #1a1a1a;
+            
+            /* White Card */
+            --card-white-bg: #ffffff;
+            
             --font-heading: 'Playfair Display', 'Times New Roman', serif;
             --font-body: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             
             /* iOS-like rounded corners */
             --radius-lg: 32px;
-            --radius-md: 20px;
+            --radius-md: 24px;
+            --radius-sm: 16px;
             --radius-pill: 50px;
             
             /* iOS-like smooth transitions */
@@ -41,7 +49,7 @@
             background-color: var(--bg-base);
             /* Simulating the desert landscape background from the reference */
             background-image: 
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
+                radial-gradient(circle at 50% 60%, rgba(255,255,255,0.2) 0%, transparent 50%),
                 linear-gradient(180deg, #f4d3d8 0%, #e8bcc4 40%, #d69ba6 100%);
             background-attachment: fixed;
             color: var(--text-main);
@@ -49,6 +57,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
+            padding: 40px 0;
         }
 
         a {
@@ -70,23 +79,16 @@
 
         /* Typography */
         h1, h2, h3, h4 {
-            font-family: var(--font-heading);
             font-weight: 400;
             line-height: 1.2;
             letter-spacing: -0.5px;
         }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--text-main);
-        }
-
         /* Glassmorphism utility */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            backdrop-filter: blur(24px) saturate(150%);
+            -webkit-backdrop-filter: blur(24px) saturate(150%);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
             border-radius: var(--radius-lg);
@@ -97,30 +99,31 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            padding: 14px 32px;
+            padding: 16px 32px;
             font-family: var(--font-body);
             font-size: 1rem;
             font-weight: 500;
             border: none;
-            border-radius: var(--radius-pill); /* Pill shape */
+            border-radius: var(--radius-pill);
             background-color: #ffffff;
             color: var(--text-main);
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
             user-select: none;
+            width: 100%;
         }
 
         .btn:active {
             transform: scale(0.96);
         }
 
-        .btn-primary {
-            background-color: var(--accent-dark);
+        .btn-dark {
+            background-color: var(--text-main);
             color: var(--text-light);
         }
 
-        .btn-primary:hover {
+        .btn-dark:hover {
             background-color: #333333;
         }
         
@@ -136,254 +139,285 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Header */
-        header {
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
+        /* --- HERO GRID (Matches the reference layout) --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 60px;
+            align-items: stretch;
         }
 
-        .nav-wrapper {
+        .hero-left-col {
             display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* 1. Top Left Glass Card */
+        .card-glass-slogan {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px 32px;
-            border-radius: var(--radius-pill);
+            flex-grow: 1;
+            min-height: 280px;
         }
 
-        .logo {
+        .card-glass-slogan h1 {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
-            letter-spacing: 1px;
+            font-size: 2.8rem;
             color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.1;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-main);
-            opacity: 0.8;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-        }
-
-        .header-contact {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-main);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 180px 0 100px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            padding: 48px;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 24px;
-            color: var(--text-main);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
+        .card-glass-slogan .address {
+            font-size: 1.1rem;
             color: var(--text-muted);
-            margin-bottom: 40px;
+            font-weight: 500;
         }
 
-        .hero-actions {
+        /* 2. Bottom Left Black Card */
+        .card-black-cta {
+            background-color: var(--card-black-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
             display: flex;
-            gap: 16px;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--glass-shadow);
+            min-height: 220px;
         }
 
-        /* Layout for Cards (Masonry-ish style) */
+        .card-black-cta h2 {
+            color: var(--text-light);
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .card-black-cta .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-black-cta .btn {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+        
+        .card-black-cta .btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-black-cta .btn-primary-white {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border: none;
+        }
+        
+        .card-black-cta .btn-primary-white:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 3. Right Large White Card */
+        .card-white-date {
+            background-color: var(--card-white-bg);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative pink circle from the reference */
+        .card-white-date::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -20%;
+            transform: translateY(-50%);
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #ffb6c1 0%, #ff8a9f 100%);
+            border-radius: 50%;
+            opacity: 0.8;
+            filter: blur(10px);
+            z-index: 0;
+        }
+
+        .card-white-date > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .date-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-month {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--text-main);
+        }
+
+        .date-year {
+            font-family: var(--font-body);
+            font-size: 2rem;
+            font-weight: 300;
+            color: #cccccc;
+            line-height: 1.2;
+            letter-spacing: 2px;
+        }
+
+        .logo-large {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            color: var(--text-main);
+            margin-top: auto;
+        }
+
+        .card-white-date .minimal-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        /* --- REST OF THE PAGE CONTENT (Small Glass Panels) --- */
         .section-padding {
-            padding: 100px 0;
+            padding: 60px 0;
         }
 
         .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
         }
 
-        /* Services Section */
         .service-card {
-            padding: 40px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
-            border-radius: var(--radius-lg);
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.35);
+            border-radius: var(--radius-md);
         }
 
         .service-card h3 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             margin-bottom: 20px;
-            font-family: var(--font-body);
             font-weight: 500;
-            letter-spacing: -0.5px;
         }
 
         .service-list {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             flex-grow: 1;
         }
 
         .service-list li {
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
             font-size: 0.95rem;
         }
 
         .service-list li::before {
             content: '';
             display: block;
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background-color: var(--text-main);
             border-radius: 50%;
             margin-top: 8px;
             flex-shrink: 0;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         .service-price {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-main);
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             display: block;
         }
 
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-item {
-            padding: 32px;
-            border-radius: var(--radius-md);
-            background: rgba(255, 255, 255, 0.15); /* Slightly lighter glass */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .feature-item h4 {
-            font-family: var(--font-body);
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .feature-item p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Reviews Section */
+        /* Reviews */
         .reviews-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .rating-badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
+            gap: 10px;
+            padding: 10px 20px;
             border-radius: var(--radius-pill);
             font-size: 0.9rem;
             font-weight: 500;
         }
 
         .rating-badge .stars {
-            color: var(--accent-pink);
-            letter-spacing: 2px;
+            color: #ff6b81;
         }
 
         .review-card {
             padding: 32px;
             display: flex;
             flex-direction: column;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-md);
         }
 
         .review-text {
             color: var(--text-main);
-            font-size: 1rem;
-            margin-bottom: 24px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
             flex-grow: 1;
-            font-style: italic;
         }
 
         .review-author {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         /* Footer */
         footer {
-            padding: 60px 0 40px;
+            padding: 40px 0;
         }
 
         .footer-inner {
-            padding: 48px;
+            padding: 40px;
             border-radius: var(--radius-lg);
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
+            gap: 32px;
         }
 
         .footer-col h4 {
-            font-family: var(--font-body);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 16px;
-            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .footer-col p, .footer-col a {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
             display: block;
         }
         
@@ -392,234 +426,194 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.5rem;
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-white-date::before {
+                width: 250px;
+                height: 250px;
+                right: -10%;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links, .header-contact {
-                display: none;
+            body {
+                padding: 20px 0;
+            }
+            
+            .card-glass-slogan h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-white-date {
+                padding: 32px;
+                min-height: 300px;
             }
 
-            .nav-wrapper {
-                padding: 12px 20px;
+            .date-month {
+                font-size: 3.5rem;
             }
-
-            .menu-toggle {
-                display: block;
+            
+            .card-black-cta {
+                padding: 32px;
             }
-
-            .hero {
-                padding: 140px 0 60px;
-                min-height: auto;
-            }
-
-            .hero-content {
-                padding: 32px 24px;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .hero-actions .btn {
-                width: 100%;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .reviews-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-
+            
             .section-padding {
-                padding: 60px 0;
+                padding: 40px 0;
             }
             
             .footer-inner {
-                padding: 32px 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            .service-card, .feature-item, .review-card {
-                padding: 24px;
+                padding: 32px;
             }
         }
     </style>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="nav-wrapper glass-panel">
-                <a href="#" class="logo">НИМФА</a>
-                
-                <nav class="nav-links">
-                    <a href="#services">Услуги</a>
-                    <a href="#features">О салоне</a>
-                    <a href="#reviews">Отзывы</a>
-                    <a href="#contacts">Контакты</a>
-                </nav>
-
-                <div class="header-contact">
-                    <a href="#cta" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">Записаться</a>
-                </div>
-
-                <div class="menu-toggle">☰</div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content glass-panel">
-                <h1>Пространство красоты и приватности</h1>
-                <p>Парикмахерские, ногтевые и косметологические услуги. Демьяна Бедного, 28к1.</p>
-                
-                <div class="hero-actions">
-                    <a href="#cta" class="btn btn-primary">Записаться онлайн</a>
-                    <a href="tel:+78120000000" class="btn btn-glass">Позвонить</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section-padding container">
-        <h2>Что мы делаем</h2>
-        <div class="grid-layout">
+    <div class="container">
+        
+        <!-- Hero Grid (The 3 Windows) -->
+        <div class="hero-grid">
             
-            <!-- Service Card 1 -->
-            <div class="service-card glass-panel">
-                <h3>Парикмахерские услуги</h3>
-                <ul class="service-list">
-                    <li>Женские и мужские стрижки</li>
-                    <li>Сложное окрашивание и осветление</li>
-                    <li>Укладка и вечерние причёски</li>
-                    <li>Наращивание волос</li>
-                </ul>
-                <span class="service-price">Женская стрижка — от 3500 ₽</span>
-                <a href="#" class="btn btn-glass">Все услуги</a>
+            <!-- Left Column -->
+            <div class="hero-left-col">
+                <!-- 1. Glass Card: Slogan & Address -->
+                <div class="card-glass-slogan glass-panel">
+                    <h1>Пространство красоты и приватности</h1>
+                    <div class="address">
+                        Санкт-Петербург,<br>
+                        ул. Демьяна Бедного, 28к1
+                    </div>
+                </div>
+
+                <!-- 2. Black Card: CTA -->
+                <div class="card-black-cta">
+                    <h2>Запишитесь<br>на удобное время</h2>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary-white">Записаться онлайн</a>
+                        <a href="tel:+78120000000" class="btn">Позвонить</a>
+                    </div>
+                </div>
             </div>
 
-            <!-- Service Card 2 -->
-            <div class="service-card glass-panel">
-                <h3>Ногтевой сервис</h3>
-                <ul class="service-list">
-                    <li>Маникюр (женский, мужской, детский)</li>
-                    <li>Педикюр и аппаратный педикюр</li>
-                    <li>Наращивание ногтей</li>
-                </ul>
-                <span class="service-price">Стоимость по запросу</span>
-                <a href="#" class="btn btn-glass">Все услуги</a>
-            </div>
-
-            <!-- Service Card 3 -->
-            <div class="service-card glass-panel">
-                <h3>Косметология</h3>
-                <ul class="service-list">
-                    <li>Коррекция бровей</li>
-                    <li>Эпиляция</li>
-                </ul>
-                <span class="service-price">Стоимость по запросу</span>
-                <a href="#" class="btn btn-glass">Все услуги</a>
+            <!-- 3. Right Column: White Card with Date & Logo -->
+            <div class="card-white-date">
+                <div class="date-block" id="current-date">
+                    <!-- Date will be populated by JavaScript -->
+                </div>
+                
+                <div class="logo-large">
+                    НИМФА
+                </div>
+                <div class="minimal-text">
+                    Beauty Salon
+                </div>
             </div>
 
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section id="features" class="section-padding container">
-        <h2>Почему нас выбирают</h2>
-        <div class="features-grid">
-            <div class="feature-item">
-                <h4>Приватность</h4>
-                <p>Мы не на витрине: вас не видят прохожие. Место, где можно расслабиться.</p>
-            </div>
-            <div class="feature-item">
-                <h4>Опытные мастера</h4>
-                <p>Специалисты по сложному окрашиванию, уходу и созданию стиля.</p>
-            </div>
-            <div class="feature-item">
-                <h4>Удобно добираться</h4>
-                <p>Демьяна Бедного, 28к1 — рядом с домом. Без лишних пробок.</p>
-            </div>
-            <div class="feature-item">
-                <h4>Прозрачные цены</h4>
-                <p>Называем стоимость до начала работы. Никаких сюрпризов.</p>
-            </div>
-        </div>
-    </section>
+        <!-- Services Section -->
+        <section id="services" class="section-padding">
+            <div class="grid-layout">
+                
+                <!-- Service Card 1 -->
+                <div class="service-card glass-panel">
+                    <h3>Парикмахерские услуги</h3>
+                    <ul class="service-list">
+                        <li>Женские и мужские стрижки</li>
+                        <li>Сложное окрашивание и осветление</li>
+                        <li>Укладка и вечерние причёски</li>
+                        <li>Наращивание волос</li>
+                    </ul>
+                    <span class="service-price">Женская стрижка — от 3500 ₽</span>
+                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                </div>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="section-padding container">
-        <div class="reviews-header">
-            <h2>Что говорят клиенты</h2>
-            <div class="rating-badge glass-panel">
-                <span class="stars">★★★★☆</span>
-                <span>4.3 на Яндекс.Картах</span>
-            </div>
-        </div>
-        <div class="grid-layout">
-            <div class="review-card glass-panel">
-                <p class="review-text">"Отличный мастер Елена! Сделала сложное окрашивание именно так, как я хотела. Очень уютно и приватно, чувствуешь себя как в спа."</p>
-                <span class="review-author">— Анна К.</span>
-            </div>
-            <div class="review-card glass-panel">
-                <p class="review-text">"Хожу на маникюр уже полгода. Всегда чисто, аккуратно и вовремя. Цены адекватные для такого качества."</p>
-                <span class="review-author">— Мария С.</span>
-            </div>
-            <div class="review-card glass-panel">
-                <p class="review-text">"Наконец-то нашла салон рядом с домом, где не нужно сидеть в очереди и можно спокойно расслабиться."</p>
-                <span class="review-author">— Ольга В.</span>
-            </div>
-        </div>
-    </section>
+                <!-- Service Card 2 -->
+                <div class="service-card glass-panel">
+                    <h3>Ногтевой сервис</h3>
+                    <ul class="service-list">
+                        <li>Маникюр (женский, мужской, детский)</li>
+                        <li>Педикюр и аппаратный педикюр</li>
+                        <li>Наращивание ногтей</li>
+                    </ul>
+                    <span class="service-price">Стоимость по запросу</span>
+                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                </div>
 
-    <!-- CTA Section -->
-    <section id="cta" class="section-padding container" style="text-align: center;">
-        <div class="glass-panel" style="padding: 60px 20px;">
-            <h2>Запишитесь на удобное время</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">Оставьте заявку — мы свяжемся и подберём мастера и время. Или позвоните нам напрямую.</p>
-            <div class="hero-actions" style="justify-content: center;">
-                <a href="#" class="btn btn-primary">Записаться онлайн</a>
-                <a href="tel:+78120000000" class="btn btn-glass">Позвонить</a>
-            </div>
-        </div>
-    </section>
+                <!-- Service Card 3 -->
+                <div class="service-card glass-panel">
+                    <h3>Косметология</h3>
+                    <ul class="service-list">
+                        <li>Коррекция бровей</li>
+                        <li>Эпиляция</li>
+                    </ul>
+                    <span class="service-price">Стоимость по запросу</span>
+                    <a href="#" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.9rem;">Все услуги</a>
+                </div>
 
-    <!-- Footer -->
-    <footer id="contacts">
-        <div class="container">
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section-padding">
+            <div class="grid-layout">
+                <div class="service-card glass-panel">
+                    <h3>Приватность</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Мы не на витрине: вас не видят прохожие. Место, где можно расслабиться и быть собой.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <h3>Опытные мастера</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Специалисты по сложному окрашиванию, уходу и созданию индивидуального стиля.</p>
+                </div>
+                <div class="service-card glass-panel">
+                    <h3>Удобно добираться</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Демьяна Бедного, 28к1 — рядом с домом. Без лишних пробок и поисков парковки.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews" class="section-padding">
+            <div class="reviews-header">
+                <h2 style="font-size: 2rem; font-family: var(--font-heading);">Отзывы</h2>
+                <div class="rating-badge glass-panel">
+                    <span class="stars">★★★★☆</span>
+                    <span>4.3 Яндекс.Карты</span>
+                </div>
+            </div>
+            <div class="grid-layout">
+                <div class="review-card glass-panel">
+                    <p class="review-text">"Отличный мастер Елена! Сделала сложное окрашивание именно так, как я хотела. Очень уютно и приватно."</p>
+                    <span class="review-author">— Анна К.</span>
+                </div>
+                <div class="review-card glass-panel">
+                    <p class="review-text">"Хожу на маникюр уже полгода. Всегда чисто, аккуратно и вовремя. Цены адекватные."</p>
+                    <span class="review-author">— Мария С.</span>
+                </div>
+                <div class="review-card glass-panel">
+                    <p class="review-text">"Наконец-то нашла салон рядом с домом, где не нужно сидеть в очереди."</p>
+                    <span class="review-author">— Ольга В.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contacts">
             <div class="footer-inner glass-panel">
                 <div class="footer-col">
-                    <a href="#" class="logo" style="margin-bottom: 20px; display: block;">НИМФА</a>
-                    <p>Салон красоты в Санкт-Петербурге. Место, где вас ценят и понимают.</p>
+                    <h4 style="font-family: var(--font-heading); font-size: 1.5rem; text-transform: none; letter-spacing: 2px;">НИМФА</h4>
+                    <p style="margin-top: 10px;">Салон красоты в Санкт-Петербурге.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Контакты</h4>
                     <p>Демьяна Бедного, 28к1</p>
-                    <p>Санкт-Петербург</p>
                     <a href="tel:+78120000000">+7 (812) 000-00-00</a>
                 </div>
                 <div class="footer-col">
@@ -632,8 +626,28 @@
                     <a href="#">Согласие на обработку данных</a>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+
+    </div>
+
+    <!-- Script to populate current date -->
+    <script>
+        const dateContainer = document.getElementById('current-date');
+        const now = new Date();
+        
+        // Get month name in English (short) or Russian
+        const monthNames = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+        // Or full name: "Январь", "Февраль", etc.
+        const monthFull = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        
+        const currentMonth = monthFull[now.getMonth()];
+        const currentYear = now.getFullYear();
+        
+        dateContainer.innerHTML = `
+            <div class="date-month">${currentMonth}</div>
+            <div class="date-year">${currentYear}</div>
+        `;
+    </script>
 
 </body>
 </html>
